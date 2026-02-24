@@ -218,6 +218,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- Commenting out code:
+vim.keymap.set('n', '<C-_>', ':normal gcc<CR><DOWN>', { desc = 'Toggle comment line' })
+vim.keymap.set('v', '<C-_>', '<Esc>:normal gvgc<CR>', { desc = 'Toggle comment block' })
+vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<Enter>', { desc = 'Toggle [t]ree View' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -800,6 +804,24 @@ require('lazy').setup({
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
     },
+  },
+
+  {
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    lazy = false,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {
+        git = {
+          enable = true, -- set to true to enable git integration
+          ignore = true, -- set to true to ignore files listed in .gitignore
+          timeout = 500, -- timeout for git commands in milliseconds
+        },
+      }
+    end,
   },
 
   { -- You can easily change to a different colorscheme.
